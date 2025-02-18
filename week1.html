@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature City Animals Gallery</title>
+    <style>
+        .filter-buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .btn.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="filter-buttons">
+        <button class="btn active" data-filter="all">All</button>
+        <button class="btn" data-filter="nature">Nature</button>
+        <button class="btn" data-filter="city">City</button>
+        <button class="btn" data-filter="animals">Animals</button>
+    </div>
+
+    <div class="gallery">
+        <!-- Images will be dynamically inserted here -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.querySelector('.gallery');
+            const buttons = document.querySelectorAll('.btn');
+            
+            // Image data array
+            const images = [
+                { category: 'nature', url: 'https://tse2-mm.cn.bing.net/th/id/OIP-C.6Axh0-PYY8UQVpfS08w3gwHaE8?rs=1&pid=ImgDetMain' },
+                { category: 'city', url: 'https://cdn.britannica.com/48/179448-138-40EABF32/Overview-New-York-City.jpg' },
+                { category: 'animals', url: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.JCtwtC15kbi-LOzP_ETC2wHaNK?w=1631&h=2899&rs=1&pid=ImgDetMain' },
+                { category: 'nature', url: 'https://ts1.cn.mm.bing.net/th/id/R-C.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0' },
+                { category: 'city', url: 'https://cdn.tatlerasia.com/tatlerasia/i/2022/03/17092341-268363213-930217674270918-6910240028522523677-n_cover_1080x1350.jpg' },
+                { category: 'animals', url: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.KcPezY5KNBQJ1xvbyiuPAwHaE8?rs=1&pid=ImgDetMain' },
+               
+            ];
+
+            // Create gallery items
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.dataset.category = img.category;
+                
+                const image = document.createElement('img');
+                image.src = img.url;
+                image.alt = img.category;
+                
+                item.appendChild(image);
+                gallery.appendChild(item);
+            });
+
+            // Filter functionality
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Get filter value
+                    const filter = button.dataset.filter;
+                    
+                    // Filter images
+                    document.querySelectorAll('.gallery-item').forEach(item => {
+                        const category = item.dataset.category;
+                        if (filter === 'all' || category === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

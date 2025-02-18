@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>按钮单击计数器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="clickButton">Click Me</button>
+    <p id="clickCount">Total Clicks: 0</p>
+
+    <script type="text/javascript">
+        // 获取按钮和显示点击次数的元素
+        var clickButton = document.getElementById('clickButton');
+        var clickCountElement = document.getElementById('clickCount');
+
+        // 初始化点击次数
+        var clickCount = 0;
+
+        // 添加点击事件监听器
+        clickButton.addEventListener('click', function() {
+            clickCount++; // 增加点击次数
+            clickCountElement.textContent = "Total Clicks: " + clickCount; // 更新显示的点击次数
+        });
+    </script>
+</body>
+</html>
